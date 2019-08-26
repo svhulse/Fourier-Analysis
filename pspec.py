@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+
+__author__ = 'Samuel Hulse'
+__email__ = 'hsamuel1@umbc.edu'
+
 import numpy as np
 
 from numpy.fft import fft2, fftshift
