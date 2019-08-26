@@ -1,13 +1,22 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+'''
+This file contains methods to be used for the computation of the computation of
+the Fourier power spectrum of images.
+'''
+
+import numpy as np
+from numpy.fft import fft2, fftshift
 
 __author__ = 'Samuel Hulse'
 __email__ = 'hsamuel1@umbc.edu'
 
-import numpy as np
-
-from numpy.fft import fft2, fftshift
-
-def get_pspec(image, bin_range=(10, 110), kaiser=True, color_model=True, n_bins=20):
+def get_pspec(image, 
+    bin_range=(10, 110), 
+    kaiser=True, 
+    color_model=True, 
+    n_bins=20):
     
     if color_model:
         image = rgb_2_darter(image)
