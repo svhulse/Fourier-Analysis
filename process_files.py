@@ -15,6 +15,9 @@ import csv
 from scipy import misc
 from pspec import get_pspec
 
+__author__ = 'Samuel Hulse'
+__email__ = 'hsamuel1@umbc.edu'
+
 habitats = {}
 habitats['barrenense'] = 'bedrock'
 habitats['blennioides'] = 'boulder'

@@ -11,6 +11,9 @@ import numpy as np
 import imageio
 import glob
 
+__author__ = 'Samuel Hulse'
+__email__ = 'hsamuel1@umbc.edu'
+
 from matplotlib import pyplot as plt
 
 def process_linear_raw(fname):
