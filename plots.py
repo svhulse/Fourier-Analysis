@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+'''
+Code used to generate figures
+'''
+
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -7,6 +14,9 @@ from scipy import misc
 from matplotlib import pyplot as plt
 import matplotlib.patches as patches
 from numpy.fft import fft2, fftshift
+
+__author__ = 'Samuel Hulse'
+__email__ = 'hsamuel1@umbc.edu'
 
 plt.rcParams["font.family"] = "arial"
 plt.rcParams['figure.dpi'] = 600
@@ -102,11 +112,6 @@ def imfft(image):
 
     return pspec
 
-
-
-
-
-
 #Habitat Violinplot
 f, ax = plt.subplots()
 
@@ -130,12 +135,6 @@ ax.set_ylabel('Fourier Slope', fontsize=major_text_size)
 ax.spines['right'].set_visible(False)
 ax.spines['top'].set_visible(False)
 plt.savefig('../Figures/Figure 4.svg')
-
-
-
-
-
-
 
 #Darter Violinplot
 f, ax = plt.subplots()
@@ -184,13 +183,6 @@ ax.spines['top'].set_visible(False)
 ax.legend(title=None, loc=8, ncol=2, frameon=False)
 plt.tight_layout()
 plt.savefig('../Figures/Figure 3.svg')
-
-
-
-
-
-
-
 
 #Scatterplots
 fish_data = pd.read_csv('C:/Users/renoult/Desktop/Sam/fish.csv')
@@ -303,12 +295,6 @@ ax[0].spines['top'].set_visible(False)
 ax[1].spines['right'].set_visible(False)
 ax[1].spines['top'].set_visible(False)
 plt.savefig('../Figures/Figure 5.svg')
-
-
-
-
-
-
 
 #Slope Demo Plot
 fig, ax = plt.subplots(nrows=2, ncols=2)

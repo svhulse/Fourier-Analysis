@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+'''
+Methods to process Canon .CR2 raw files, and save them as tiffs without any
+white balance, gamma correction, or compression.
+'''
+
 import rawpy as rp
 import numpy as np
 import imageio

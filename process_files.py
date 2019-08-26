@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+'''
+Code used load all images, calculate their Fourier power specturm, and save the
+data in a format which is easy to run statistics with. Folders locations and
+file structure are hard coded, and must be changed for different file structures
+'''
+
 import numpy as np
 import imageio
 import os
