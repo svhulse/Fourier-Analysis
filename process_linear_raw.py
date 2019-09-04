@@ -30,10 +30,10 @@ def process_linear_raw(fname):
     return rgb
 
 if (__name__ == '__main__'):
-    outdir = './tiff/'
+    outdir = './tif/'
     fnames = glob.glob('./*.CR2')
 
     for i in fnames:
         print('Processing file ' + str(i) + ' of ' + str(len(fnames)))
         rgb = process_linear_raw(i)
-        imageio.imwrite((outdir + i[0:-4] + '.tiff'), rgb)
+        imageio.imwrite((outdir + i[0:-4] + '.tif'), rgb)
