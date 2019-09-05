@@ -23,7 +23,6 @@ def process_linear_raw(fname):
         output_bps = 16,
         half_size = True)
 
-    counter = 0
     raw = rp.imread(fname)
     rgb = raw.postprocess(params = rawParams)
 
