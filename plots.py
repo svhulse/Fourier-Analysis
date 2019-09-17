@@ -29,6 +29,8 @@ major_text_size = 8
 blue = '#1f77b4'
 orange = '#ff7f0e'
 
+base_dir = '~/Projects/Fourier-Analysis/'
+
 def random_sample(data, sample_dim):
     sample_domain = np.subtract(data.shape[0:2], (sample_dim, sample_dim))       
     if sample_domain[0] == 0: sample_x = 0
@@ -45,7 +47,7 @@ f, ax = plt.subplots()
 
 labels = ['Gravel', 'Boulder', 'Bedrock', 'Detritus', 'Sand']
 
-hab_data = pd.read_csv('C:/Users/renoult/Desktop/Sam/habitats.csv')
+hab_data = pd.read_csv(base_dir + 'Data/habitats.csv')
 sns.violinplot(x='habitat', 
     y='slope',
     order=['gravel', 'boulder', 'bedrock', 'detritus', 'sand'],
@@ -62,7 +64,7 @@ ax.set_ylabel('Fourier Slope', fontsize=major_text_size)
 
 ax.spines['right'].set_visible(False)
 ax.spines['top'].set_visible(False)
-plt.savefig('../Figures/Figure 4.svg')
+plt.savefig(base_dir + 'Figure 4.svg')
 
 #Darter Violinplot
 f, ax = plt.subplots()
@@ -71,7 +73,7 @@ colors = ['#1f77b4', '#ff7f0e']
 labels = ['E. caeruleum','E. zonale','E. blennioides','E. camurum','E. barrenense',
         'E. swaini','E. gracile','E. olmstedi','E. pyrrhogaster','E. chlorosomum']
 
-fish_data = pd.read_csv('C:/Users/renoult/Desktop/Sam/fish.csv')
+fish_data = pd.read_csv(base_dir + 'fish.csv')
 darters = sns.violinplot(x='species',
     y='slope',
     hue='sex',
@@ -110,11 +112,11 @@ ax.spines['top'].set_visible(False)
 
 ax.legend(title=None, loc=8, ncol=2, frameon=False)
 plt.tight_layout()
-plt.savefig('../Figures/Figure 3.svg')
+plt.savefig(base_dir + 'Figures/Figure 3.svg')
 
 #Scatterplots
-fish_data = pd.read_csv('C:/Users/renoult/Desktop/Sam/fish.csv')
-hab_data = pd.read_csv('C:/Users/renoult/Desktop/Sam/habitats.csv')
+fish_data = pd.read_csv(base_dir + 'Data/fish.csv')
+hab_data = pd.read_csv(base_dir + 'Data/habitats.csv')
 
 habitats = {}
 habitats['barrenense'] = 'bedrock'
@@ -159,6 +161,7 @@ ax[0].errorbar(h_vals,
     capthick=1,
     color=blue,
     fmt='o')
+
 ax[1].errorbar(h_vals,
     f_vals,
     xerr=sem_h,
@@ -222,7 +225,7 @@ ax[0].spines['right'].set_visible(False)
 ax[0].spines['top'].set_visible(False)
 ax[1].spines['right'].set_visible(False)
 ax[1].spines['top'].set_visible(False)
-plt.savefig('../Figures/Figure 5.svg')
+plt.savefig(base_dir + 'Figures/Figure 5.svg')
 
 #Slope Demo Plot
 fig, ax = plt.subplots(nrows=2, ncols=2)
@@ -304,4 +307,4 @@ ax[1,1].set_xlabel('Frequency (cycles per image)', fontsize=major_text_size)
 ax[0,1].set_ylabel('Power', fontsize=major_text_size)
 ax[1,1].set_ylabel('Power', fontsize=major_text_size)
 
-plt.savefig('../Figures/Figure 2.svg')
+plt.savefig(base_dir + 'Figures/Figure 2.svg')

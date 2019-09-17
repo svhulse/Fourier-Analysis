@@ -11,9 +11,20 @@ import numpy as np
 import imageio
 import os
 import csv
+import cv2
 
-from scipy import misc
 from pspec import get_pspec
+
+# Resizing parameters
+hab_size = (1024, 1024)
+hab_sample = 512
+fish_size = (512, 512)
+fish_sample = 200
+
+# Sampling parameters
+hab_range = (10, 255)
+fish_range = (10, 255)
+n_samples = 4
 
 __author__ = 'Samuel Hulse'
 __email__ = 'hsamuel1@umbc.edu'
@@ -42,12 +53,11 @@ def random_sample(data, sample_dim):
     return sample
 
 #Habitat image processing
-path = 'C:/Users/renoult/Desktop/Sam/Catagorized'
+path = './Images/Catagorized'
 folders = os.listdir(path)
 
 slopes = []
 habitat = []
-n_samples = 2
 
 n_files = 0
 for folder in folders:
@@ -64,12 +74,12 @@ for folder in folders:
         if image.endswith('.tiff'):
             img_path = os.path.join(current_path, image)
             img = imageio.imread(img_path)
-            img = misc.imresize(img, (800, 1200))
+            img = cv2.resize(img, dsize=hab_size, interpolation=cv2.INTER_LINEAR)
 
             status = 100*(current_file/n_files)
             print('Processing habitat images: ' + "%.2f" % round(status,2) + '% complete', end='\r')
             for i in range(n_samples):
-                sample_dim=400
+                sample_dim=hab_sample
                 sample_domain = np.subtract(img.shape[0:2], (sample_dim, sample_dim))       
                 if sample_domain[0] == 0: sample_x = 0
                 else: sample_x = np.random.randint(0, sample_domain[0])
@@ -77,7 +87,7 @@ for folder in folders:
                 else: sample_y = np.random.randint(0, sample_domain[1])
                 sample = img[sample_x: sample_x + sample_dim, sample_y: sample_y + sample_dim]
 
-                slope = get_pspec(sample, bin_range=(10, 200))
+                slope = get_pspec(sample, bin_range=hab_range)
                 slopes.append(slope)
                 habitat.append(folder)
 
@@ -136,7 +146,7 @@ animals['swaini'] = 'Etheostoma_swaini_A'
 animals['zonale'] = 'Etheostoma_zonale_A'
 
 #Darter image processing
-path = 'C:/Users/renoult/Desktop/Sam/Crops'
+path = '/home/mlab/Projects/Fourier-Analysis/Images/Crops'
 folders = os.listdir(path)
 
 for folder in folders:
@@ -148,7 +158,7 @@ for folder in folders:
             img_path = os.path.join(current_path, image)
             img = imageio.imread(img_path)
 
-            sample_dim=200
+            sample_dim=fish_sample
             sample_domain = np.subtract(img.shape[0:2], (sample_dim, sample_dim))       
             if sample_domain[0] == 0: sample_x = 0
             else: sample_x = np.random.randint(0, sample_domain[0])
@@ -156,7 +166,9 @@ for folder in folders:
             else: sample_y = np.random.randint(0, sample_domain[1])
             sample = img[sample_x: sample_x + sample_dim, sample_y: sample_y + sample_dim]
 
-            slope = get_pspec(sample, bin_range=(10,110))
+            sample = cv2.resize(sample, dsize=fish_size, interpolation=cv2.INTER_LINEAR)
+
+            slope = get_pspec(sample, bin_range=fish_range)
 
             slopes.append(slope)
             species.append(folder)
