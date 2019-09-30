@@ -16,7 +16,8 @@ def get_pspec(image,
     bin_range=(10, 110), 
     kaiser=True, 
     color_model=True, 
-    n_bins=20):
+    n_bins=20,
+    return_bins=False):
     
     if color_model:
         image = rgb_2_darter(image)
@@ -30,7 +31,10 @@ def get_pspec(image,
     x, y = bin_pspec(pspec, n_bins, bin_range)
     slope = get_slope(x, y)
 
-    return slope
+    if return_bins:
+        return (x, y)
+    else:
+        return slope
     
 def rgb_2_darter(image):
     im_out = np.zeros([image.shape[0], image.shape[1], 3], dtype = np.float32)
