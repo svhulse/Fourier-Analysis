@@ -16,15 +16,15 @@ import cv2
 from pspec import get_pspec
 
 # Resizing parameters
-hab_size = (1024, 1024)
-hab_sample = 512
-fish_size = (512, 512)
+hab_size = (600, 900)
+hab_sample = 200
+fish_size = (200, 200)
 fish_sample = 200
 
 # Sampling parameters
-hab_range = (10, 255)
-fish_range = (10, 255)
-n_samples = 4
+hab_range = (10, 110)
+fish_range = (10, 110)
+n_samples = 2
 
 __author__ = 'Samuel Hulse'
 __email__ = 'hsamuel1@umbc.edu'
@@ -78,6 +78,7 @@ for folder in folders:
 
             status = 100*(current_file/n_files)
             print('Processing habitat images: ' + "%.2f" % round(status,2) + '% complete', end='\r')
+
             for i in range(n_samples):
                 sample_dim=hab_sample
                 sample_domain = np.subtract(img.shape[0:2], (sample_dim, sample_dim))       
@@ -158,25 +159,26 @@ for folder in folders:
             img_path = os.path.join(current_path, image)
             img = imageio.imread(img_path)
 
-            sample_dim=fish_sample
-            sample_domain = np.subtract(img.shape[0:2], (sample_dim, sample_dim))       
-            if sample_domain[0] == 0: sample_x = 0
-            else: sample_x = np.random.randint(0, sample_domain[0])
-            if sample_domain[1] == 0: sample_y = 0
-            else: sample_y = np.random.randint(0, sample_domain[1])
-            sample = img[sample_x: sample_x + sample_dim, sample_y: sample_y + sample_dim]
+            for i in range(n_samples):
+                sample_dim = fish_sample
+                sample_domain = np.subtract(img.shape[0:2], (sample_dim, sample_dim))       
+                if sample_domain[0] == 0: sample_x = 0
+                else: sample_x = np.random.randint(0, sample_domain[0])
+                if sample_domain[1] == 0: sample_y = 0
+                else: sample_y = np.random.randint(0, sample_domain[1])
+                sample = img[sample_x: sample_x + sample_dim, sample_y: sample_y + sample_dim]
 
-            sample = cv2.resize(sample, dsize=fish_size, interpolation=cv2.INTER_LINEAR)
+                sample = cv2.resize(sample, dsize=fish_size, interpolation=cv2.INTER_CUBIC)
 
-            slope = get_pspec(sample, bin_range=fish_range)
+                slope = get_pspec(sample, bin_range=fish_range)
 
-            slopes.append(slope)
-            species.append(folder)
-            habitat.append(habitats[folder])
-            sexes.append(image[-7])
-            hab_slopes.append(hab_means[habitats[folder]])
-            animal.append(animals[folder])
-            sites.append(image[-12:-8])
+                slopes.append(slope)
+                species.append(folder)
+                habitat.append(habitats[folder])
+                sexes.append(image[-7])
+                hab_slopes.append(hab_means[habitats[folder]])
+                animal.append(animals[folder])
+                sites.append(image[-12:-8])
     
 with open('../fish.csv', mode='w', newline='') as f:
     writer = csv.writer(f)
